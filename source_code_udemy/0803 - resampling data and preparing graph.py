@@ -2,7 +2,7 @@ import pandas as pd
 import sqlite3
 import matplotlib.pyplot as plt
 import matplotlib.ticker as mticker
-from matplotlib.finance import candlestick_ohlc
+from mpl_finance import candlestick_ohlc
 import matplotlib.dates as mdates
 from matplotlib import style
 
@@ -23,14 +23,14 @@ def pull_from_DB():
 
     return df
 df = pull_from_DB()
-#print(df.head())
+print(df.head())
 
 df['Date'] = pd.to_datetime(df['Unix'], unit='s')
 df.set_index('Date', inplace=True)
 del(df['Unix'])
 print(df.tail())
 
-ohlc = df['Price'].resample('1D', how='ohlc')
+ohlc = df['Price'].resample('1D').ohlc()
 
 print(ohlc.head())
 
